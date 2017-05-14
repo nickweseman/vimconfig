@@ -3,7 +3,7 @@ let mapleader = " "
 
 set backspace=2   " Backspace deletes like most programs in insert mode
 set nobackup
-set nowritebackup
+
 set noswapfile    " http://robots.thoughtbot.com/post/18739402579/global-gitignore#comment-458413287
 set history=50
 set ruler         " show the cursor position all the time
@@ -166,14 +166,14 @@ filetype indent on " load filetype-specific indent files
 set wildmenu " visual autocomplete for command menu
 set lazyredraw " redraw only when we hvae to (not during macros)
 set showmatch " highlight matching [{()}]
-" turn off search highlight - vim will keep highlighted matches from previous 
+" turn off search highlight - vim will keep highlighted matches from previous
 " searches
 nnoremap <leader><space> :nohlsearch<CR>
 set foldenable " enable folding
 set foldlevelstart=10 " open most folds by default
 set foldnestmax=10 " 10 nested fold max
 " space open/closes folds
-nnoremap <space> za	
+nnoremap <space> za
 set foldmethod=indent " fold based on indent level
 
 " Plugins
@@ -181,7 +181,7 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 set runtimepath^=~/.vim/bundle/nerdtree
 set runtimepath^=~/.vim/bundle/vim-fugitive
 set runtimepath^=~/.vim/bundle/vim-gitgutter
-
+set runtimepath^=~/.vim/bundle/vim-airline
 
 " Toggle nerdtree with F10
 map <F10> :NERDTreeToggle<CR>
