@@ -174,3 +174,12 @@ set foldnestmax=10 " 10 nested fold max
 " space open/closes folds
 nnoremap <space> za	
 set foldmethod=indent " fold based on indent level
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+set runtimepath^=~/.vim/bundle/nerdtree
+
+" Toggle nerdtree with F10  
+map <F10> :NERDTreeToggle<CR>
+
+" Current file in nerdtree  
+map <F9> :NERDTreeFind<CR>  
+
