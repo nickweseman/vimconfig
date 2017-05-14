@@ -58,7 +58,8 @@ set shiftround
 set expandtab " tabs are shortcut for 4 spaces
 
 " Display extra whitespace
-set list listchars=tab:»·,trail:·,nbsp:·
+:set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<
+:set list
 
 " Use one space, not two, after punctuation.
 set nojoinspaces
@@ -174,12 +175,25 @@ set foldnestmax=10 " 10 nested fold max
 " space open/closes folds
 nnoremap <space> za	
 set foldmethod=indent " fold based on indent level
+
+" Plugins
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 set runtimepath^=~/.vim/bundle/nerdtree
+set runtimepath^=~/.vim/bundle/vim-fugitive
+set runtimepath^=~/.vim/bundle/vim-gitgutter
 
-" Toggle nerdtree with F10  
+
+" Toggle nerdtree with F10
 map <F10> :NERDTreeToggle<CR>
 
-" Current file in nerdtree  
-map <F9> :NERDTreeFind<CR>  
+" Current file in nerdtree
+map <F9> :NERDTreeFind<CR>
+
+"key to insert mode with paste using F2 key
+map <F2> :set paste<CR>
+" Leave paste mode on exit
+au InsertLeave * set nopaste
+
+
+
 
