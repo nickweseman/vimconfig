@@ -1,3 +1,6 @@
+" Use vim settings instead of Vi settings
+set nocompatible
+
 " Leader
 let mapleader = " "
 
@@ -50,7 +53,7 @@ augroup END
 " shell for syntax highlighting purposes.
 let g:is_posix = 1
 
-" Softtabs, 2 spaces
+" Softtabs, 4 spaces
 set tabstop=4
 set softtabstop=4
 set shiftwidth=2
@@ -193,6 +196,11 @@ map <F9> :NERDTreeFind<CR>
 map <F2> :set paste<CR>
 " Leave paste mode on exit
 au InsertLeave * set nopaste
+
+" Toggle between absolute and relative numbers with Ctrl + N
+" Set Relative Line Numbers by default
+set relativenumber
+nnoremap <C-n> :set relativenumber!<cr>
 
 
 
