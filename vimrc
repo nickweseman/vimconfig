@@ -51,10 +51,11 @@ augroup END
 let g:is_posix = 1
 
 " Softtabs, 2 spaces
-set tabstop=2
+set tabstop=4
+set softtabstop=4
 set shiftwidth=2
 set shiftround
-set expandtab
+set expandtab " tabs are shortcut for 4 spaces
 
 " Display extra whitespace
 set list listchars=tab:»·,trail:·,nbsp:·
@@ -160,3 +161,16 @@ endif
 """ Nick's Additions
 set hlsearch  " highlights matches
 set cursorline  " highlight current line
+filetype indent on " load filetype-specific indent files
+set wildmenu " visual autocomplete for command menu
+set lazyredraw " redraw only when we hvae to (not during macros)
+set showmatch " highlight matching [{()}]
+" turn off search highlight - vim will keep highlighted matches from previous 
+" searches
+nnoremap <leader><space> :nohlsearch<CR>
+set foldenable " enable folding
+set foldlevelstart=10 " open most folds by default
+set foldnestmax=10 " 10 nested fold max
+" space open/closes folds
+nnoremap <space> za	
+set foldmethod=indent " fold based on indent level
