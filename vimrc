@@ -56,7 +56,7 @@ let g:is_posix = 1
 " Softtabs, 4 spaces
 set tabstop=4
 set softtabstop=4
-set shiftwidth=2
+set shiftwidth=4
 set shiftround
 set expandtab " tabs are shortcut for 4 spaces
 
@@ -202,6 +202,13 @@ au InsertLeave * set nopaste
 set relativenumber
 nnoremap <C-n> :set relativenumber!<cr>
 
+" F5 runs the python module
+autocmd FileType python nnoremap <buffer> <F5> :!python %<cr>
+" F5 compiles and runs Java class
+autocmd FileType java nnoremap <buffer> <F5> :!javac % ; java %:r<cr>
 
+set autoindent
+set fileformat=unix
+set encoding=utf-8
 
 
