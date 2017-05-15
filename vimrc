@@ -2,7 +2,7 @@
 set nocompatible
 
 " Leader
-let mapleader = " "
+let mapleader = ","
 
 set backspace=2   " Backspace deletes like most programs in insert mode
 set nobackup
@@ -185,6 +185,8 @@ set runtimepath^=~/.vim/bundle/nerdtree
 set runtimepath^=~/.vim/bundle/vim-fugitive
 set runtimepath^=~/.vim/bundle/vim-gitgutter
 set runtimepath^=~/.vim/bundle/vim-airline
+set runtimepath^=~/.vim/bundle/YouCompleteMe
+
 
 " Toggle nerdtree with F10
 map <F10> :NERDTreeToggle<CR>
