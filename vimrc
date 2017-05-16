@@ -189,10 +189,10 @@ set runtimepath^=~/.vim/bundle/YouCompleteMe
 
 
 " Toggle nerdtree with F10
-map <F10> :NERDTreeToggle<CR>
+map <leader>n :NERDTreeToggle<CR>
 
 " Current file in nerdtree
-map <F9> :NERDTreeFind<CR>
+map <leader>f :NERDTreeFind<CR>
 
 "key to insert mode with paste using F2 key
 map <F2> :set paste<CR>
@@ -212,5 +212,10 @@ autocmd FileType java nnoremap <buffer> <F5> :!javac % ; java %:r<cr>
 set autoindent
 set fileformat=unix
 set encoding=utf-8
+
+" Ensures AutoComplete window goes away when we're done with it
+let g:ycm_autoclose_preview_window_after_completion=1
+" leader-g for GoTo
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 
