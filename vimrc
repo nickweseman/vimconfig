@@ -1,6 +1,9 @@
 " Use vim settings instead of Vi settings
 set nocompatible
 
+set encoding=utf-8
+scriptencoding utf-8
+
 " Leader
 let mapleader = ","
 
@@ -61,7 +64,7 @@ set shiftround
 set expandtab " tabs are shortcut for 4 spaces
 
 " Display extra whitespace
-:set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<
+:set listchars=eol:¬,trail:~,extends:>,precedes:<,tab:>-
 :set list
 
 " Use one space, not two, after punctuation.
@@ -187,12 +190,14 @@ set runtimepath^=~/.vim/bundle/vim-gitgutter
 set runtimepath^=~/.vim/bundle/vim-airline
 set runtimepath^=~/.vim/bundle/YouCompleteMe
 
-
 " Toggle nerdtree with F10
 map <leader>n :NERDTreeToggle<CR>
 
 " Current file in nerdtree
 map <leader>f :NERDTreeFind<CR>
+
+" hide pyc files in NERDTree
+let NERDTreeIgnore=['\.pyc$', '\~$']
 
 "key to insert mode with paste using F2 key
 map <F2> :set paste<CR>
@@ -211,11 +216,45 @@ autocmd FileType java nnoremap <buffer> <F5> :!javac % ; java %:r<cr>
 
 set autoindent
 set fileformat=unix
-set encoding=utf-8
 
 " Ensures AutoComplete window goes away when we're done with it
 let g:ycm_autoclose_preview_window_after_completion=1
 " leader-g for GoTo
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
+let python_highlight_all=1
 
+"colors koehler
+"colorscheme darcula
+colorscheme solarized
+set background=dark
+
+set smartindent " code-dependent version of indent (also most have autoindent on)
+set ls=2 " show a status line even when one window is shown
+
+" Use case insensitive search, except when using capital letters
+set ignorecase
+set smartcase
+
+" Instead of failing a command because of unsaved changes, instead raise a
+" dialogue asking if you wish to save changed files.
+set confirm
+
+" Use visual bell instead of beeping when doing something wrong
+set visualbell
+
+" And reset the terminal code for the visual bell. If visualbell is set, and
+" this line is also included, vim will neither flash nor beep. If visualbell
+" is unset, this does nothing.
+set t_vb=
+
+" Set the command window height to 2 lines, to avoid many cases of having to
+" "press <Enter> to continue"
+set cmdheight=2
+
+" Quickly time out on keycodes, but never time out on mappings
+set notimeout ttimeout ttimeoutlen=200
+
+" Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
+" which is the default
+map Y y$
