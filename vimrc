@@ -189,6 +189,8 @@ set runtimepath^=~/.vim/bundle/vim-fugitive
 set runtimepath^=~/.vim/bundle/vim-gitgutter
 set runtimepath^=~/.vim/bundle/vim-airline
 set runtimepath^=~/.vim/bundle/YouCompleteMe
+set runtimepath^=~/.vim/bundle/syntastic
+set runtimepath^=~/.vim/bundle/tagbar
 
 " Toggle nerdtree with F10
 map <leader>n :NERDTreeToggle<CR>
@@ -281,7 +283,22 @@ if !empty($CONDA_DEFAULT_ENV)
     :let $PYTHONPATH.="/lib/python3.6/site-packages/"
 endif
 
+" Suggested Settings from Syntastic's GitHub page
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+set statusline+=\ %=%#warningmsg#
+set statusline+=\ %=%{SyntasticStatuslineFlag()}
+set statusline+=\ %=%*
 
+" Turn off Eclim code validation so syntastic can run
+let g:EclimJavaValidate = 0
+
+nmap <leader>t :TagbarToggle<CR>
+
+" Open Tagbar automatically if opening a supported file type
+autocmd VimEnter * nested :call tagbar#autoopen(1)
 
 
 
