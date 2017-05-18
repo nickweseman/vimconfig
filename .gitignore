@@ -1,5 +1,6 @@
 eclim/
 plugin/eclim.vim
 workbench.xmi
+bundle/YouCompleteMe
 
 
