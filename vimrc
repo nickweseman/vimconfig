@@ -120,11 +120,11 @@ nnoremap <Up> :echoe "Use k"<CR>
 nnoremap <Down> :echoe "Use j"<CR>
 
 " vim-test mappings
-nnoremap <silent> <Leader>t :TestFile<CR>
-nnoremap <silent> <Leader>s :TestNearest<CR>
-nnoremap <silent> <Leader>l :TestLast<CR>
-nnoremap <silent> <Leader>a :TestSuite<CR>
-nnoremap <silent> <leader>gt :TestVisit<CR>
+"nnoremap <silent> <Leader>t :TestFile<CR>
+"nnoremap <silent> <Leader>s :TestNearest<CR>
+"nnoremap <silent> <Leader>l :TestLast<CR>
+"nnoremap <silent> <Leader>a :TestSuite<CR>
+"nnoremap <silent> <leader>gt :TestVisit<CR>
 
 " Run commands that require an interactive shell
 nnoremap <Leader>r :RunInInteractiveShell<space>
@@ -199,6 +199,12 @@ map <leader>f :NERDTreeFind<CR>
 " hide pyc files in NERDTree
 let NERDTreeIgnore=['\.pyc$', '\~$']
 
+" Auto open NERDTree on startup and adjsut focus to main window
+autocmd VimEnter * NERDTree | wincmd p
+
+"Auto close NERDTree when window closes
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
 "key to insert mode with paste using F2 key
 map <F2> :set paste<CR>
 " Leave paste mode on exit
@@ -258,3 +264,26 @@ set notimeout ttimeout ttimeoutlen=200
 " Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
 " which is the default
 map Y y$
+
+" <leader>p allows you to copy/paste easily with the mouse
+map <leader>p :set relativenumber!<CR>:set number!<CR>:set list!<CR>
+
+let g:EclimCompletionMethod = 'omnifunc'
+
+" Without this, you can have edited buffers that aren't visible in a
+" window somewhere.
+:set hidden
+
+" Add Conda environment to PYTHONPATH for YouCompleteMe
+if !empty($CONDA_DEFAULT_ENV)
+    :let $PYTHONPATH="/home/nick/programs/miniconda3/envs/"
+    :let $PYTHONPATH.=$CONDA_DEFAULT_ENV
+    :let $PYTHONPATH.="/lib/python3.6/site-packages/"
+endif
+
+
+
+
+
+
+
