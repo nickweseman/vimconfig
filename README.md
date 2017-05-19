@@ -5,3 +5,9 @@ make a backup of ~/.vimrc
 echo "runtime vimrc" > ~/.vimrc  
 git clone https://github.com/nickweseman/vimconfig.git .vim  
 
+Folders intentionally not included in the bundle because they have verions that need to be installed are:
+- YouCompleteMe
+- Eclim
+
+
+
