@@ -127,7 +127,7 @@ nnoremap <Down> :echoe "Use j"<CR>
 "nnoremap <silent> <leader>gt :TestVisit<CR>
 
 " Run commands that require an interactive shell
-nnoremap <Leader>r :RunInInteractiveShell<space>
+"nnoremap <Leader>r :RunInInteractiveShell<space>
 
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
@@ -172,12 +172,15 @@ filetype indent on " load filetype-specific indent files
 set wildmenu " visual autocomplete for command menu
 set lazyredraw " redraw only when we hvae to (not during macros)
 set showmatch " highlight matching [{()}]
+
 " turn off search highlight - vim will keep highlighted matches from previous
 " searches
 nnoremap <leader><space> :nohlsearch<CR>
+
 set foldenable " enable folding
 set foldlevelstart=10 " open most folds by default
 set foldnestmax=10 " 10 nested fold max
+
 " space open/closes folds
 nnoremap <space> za
 set foldmethod=indent " fold based on indent level
@@ -191,6 +194,7 @@ set runtimepath^=~/.vim/bundle/vim-airline
 set runtimepath^=~/.vim/bundle/YouCompleteMe
 set runtimepath^=~/.vim/bundle/syntastic
 set runtimepath^=~/.vim/bundle/tagbar
+set runtimepath^=~/.vim/bundle/vim-signify
 
 " Toggle nerdtree with F10
 map <leader>n :NERDTreeToggle<CR>
@@ -207,8 +211,8 @@ autocmd VimEnter * NERDTree | wincmd p
 "Auto close NERDTree when window closes
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-"key to insert mode with paste using F2 key
-map <F2> :set paste<CR>
+"key to insert mode with paste
+map <leader>p :set paste<CR>
 " Leave paste mode on exit
 au InsertLeave * set nopaste
 
@@ -218,9 +222,9 @@ set relativenumber
 nnoremap <C-n> :set relativenumber!<cr>
 
 " F5 runs the python module
-autocmd FileType python nnoremap <buffer> <F5> :!python %<cr>
+autocmd FileType python nnoremap <buffer> <leader>r :!python %<cr>
 " F5 compiles and runs Java class
-autocmd FileType java nnoremap <buffer> <F5> :!javac % ; java %:r<cr>
+autocmd FileType java nnoremap <buffer> <leader>r :!javac % ; java %:r<cr>
 
 set autoindent
 set fileformat=unix
@@ -268,7 +272,7 @@ set notimeout ttimeout ttimeoutlen=200
 map Y y$
 
 " <leader>p allows you to copy/paste easily with the mouse
-map <leader>p :set relativenumber!<CR>:set number!<CR>:set list!<CR>
+map <leader>c :set relativenumber!<CR>:set number!<CR>:set list!<CR>
 
 let g:EclimCompletionMethod = 'omnifunc'
 
@@ -293,14 +297,15 @@ set statusline+=\ %=%{SyntasticStatuslineFlag()}
 set statusline+=\ %=%*
 
 " Turn off Eclim code validation so syntastic can run
-let g:EclimJavaValidate = 0
+let g:EclimJavaValidate = 1
 
 nmap <leader>t :TagbarToggle<CR>
 
 " Open Tagbar automatically if opening a supported file type
 autocmd VimEnter * nested :call tagbar#autoopen(1)
 
-
-
+nmap <leader>w :w<CR>
+nmap <leader>q :q!<CR>
+nmap <leader>x :wq<CR>
 
 
