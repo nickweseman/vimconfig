@@ -197,12 +197,13 @@ set runtimepath^=~/.vim/bundle/tagbar
 set runtimepath^=~/.vim/bundle/vim-signify
 set runtimepath^=~/.vim/bundle/vim-tmux-navigator
 set runtimepath^=~/.vim/bundle/vim-commentary
+set runtimepath^=~/.vim/bundle/vim-nerdtree-tabs
 
 " Toggle nerdtree with F10
-map <leader>n :NERDTreeToggle<CR>
+map <leader>n :NERDTreeTabsToggle<CR>
 
 " Current file in nerdtree
-map <leader>f :NERDTreeFind<CR>
+map <leader>f :NERDTreeTabsFind<CR>
 
 " hide pyc files in NERDTree
 let NERDTreeIgnore=['\.pyc$', '\~$']
@@ -210,8 +211,16 @@ let NERDTreeIgnore=['\.pyc$', '\~$']
 " Auto open NERDTree on startup and adjsut focus to main window
 autocmd VimEnter * NERDTree | wincmd p
 
-"Auto close NERDTree when window closes
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" On startup, focus NERDTree if opening a directory, file if opening a file
+let g:nerdtree_tabs_smart_startup_focus=1
+
+" Open NERDTree on startup
+let g:nerdtree_tabs_open_on_console_startup=1
+
+" Open NERDTree on new tab creation (if NERDTree was globally opened by :NERDTreeTabsToggle)
+let g:nerdtree_tabs_open_on_new_tab=1
+
+let NERDTreeShowHidden=1 " Show hidden files in NerdTree
 
 "key to insert mode with paste
 map <leader>p :set paste<CR>
@@ -306,8 +315,11 @@ nmap <leader>t :TagbarToggle<CR>
 " Open Tagbar automatically if opening a supported file type
 autocmd VimEnter * nested :call tagbar#autoopen(1)
 
+" Open Tagbar automtically in a new tab for a supported file type
+autocmd BufEnter * nested :call tagbar#autoopen(0)
+
 nmap <leader>w :w<CR>
-nmap <leader>q :q!<CR>
+nmap <leader>q :q<CR>
 nmap <leader>x :wq<CR>
 
 " Eclim - Import the class under the cursor
@@ -325,6 +337,8 @@ nnoremap <silent> <buffer> <leader>a :JavaCorrect<cr>
 " Always show at least one line above/below the cursor
 :set scrolloff=1
 
+" properly auto-insert matched block delimiters
+autocmd Syntax c,cpp,java,php,perl imap { {<CR>}<Esc>O
 
-
+set report=0 " always show changes (e.g. 3 lines yanked at the bottom)
 
