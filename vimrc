@@ -195,6 +195,7 @@ set runtimepath^=~/.vim/bundle/YouCompleteMe
 set runtimepath^=~/.vim/bundle/syntastic
 set runtimepath^=~/.vim/bundle/tagbar
 set runtimepath^=~/.vim/bundle/vim-signify
+set runtimepath^=~/.vim/bundle/vim-tmux-navigator
 set runtimepath^=~/.vim/bundle/vim-commentary
 
 " Toggle nerdtree with F10
@@ -312,11 +313,14 @@ nmap <leader>x :wq<CR>
 " Eclim - Import the class under the cursor
 nnoremap <silent> <buffer> <leader>i :JavaImport<cr>
 
-" Eclim - Search for the javadocs of the element under the cursor
+" Eclim - Search the javadocs of the element under the cursor
 nnoremap <silent> <buffer> <leader>d :JavaDocSearch -x declarations<cr>
 
 " Eclim - Perform a context sensitive search of the element under the cursor
 nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
+
+" Eclim - Code Correction Suggestion
+nnoremap <silent> <buffer> <leader>a :JavaCorrect<cr>
 
 " Always show at least one line above/below the cursor
 :set scrolloff=1
