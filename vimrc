@@ -48,6 +48,7 @@ set softtabstop=4
 set shiftwidth=4
 set shiftround
 set expandtab " tabs are shortcut for 4 spaces
+set wildmode=list:longest,list:full " will insert tab at beginning of line, will use completion if not at beginning
 
 scriptencoding utf-8
 
@@ -107,6 +108,7 @@ set runtimepath^=~/.vim/bundle/vim-signify
 set runtimepath^=~/.vim/bundle/vim-tmux-navigator
 set runtimepath^=~/.vim/bundle/vim-commentary
 set runtimepath^=~/.vim/bundle/vim-nerdtree-tabs
+set runtimepath^=~/.vim/bundle/ag.vim
 " }}}
 
 " NERDTree {{{
@@ -157,8 +159,9 @@ set statusline+=\ %=%*
 
 " Ensures AutoComplete window goes away when we're done with it
 let g:ycm_autoclose_preview_window_after_completion=1
-" leader-g for GoTo
-map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+map <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR> " Go To
+map <leader>e :YcmCompleter GoToReferences<CR> " Find All References
 
 " }}}
 
@@ -174,7 +177,17 @@ autocmd BufEnter * nested :call tagbar#autoopen(0)
 
 " }}}
 
+" CtrlP {{{
+
+" Additional mapping for buffer search
+nnoremap <silent> <leader>b :CtrlPBuffer<cr>
+
+let g:ctrlp_cmd = 'CtrlPMRU'
+
+" }}}
+
 " Matchit {{{
+"
 
 " Load matchit.vim, but only if the user hasn't installed a newer version.
 if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
@@ -187,19 +200,30 @@ endif
 
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
-  " Use Ag over Grep
-  set grepprg=ag\ --nogroup\ --nocolor
+    " Use Ag over Grep
+    set grepprg=ag\ --nogroup\ --nocolor
 
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag -Q -l --nocolor --hidden -g "" %s'
+    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+    let g:ctrlp_user_command = 'ag -Q -l --nocolor --hidden -g "" %s'
 
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
+    " ag is fast enough that CtrlP doesn't need to cache
+    let g:ctrlp_use_caching = 0
 
-  if !exists(":Ag")
-    command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-    nnoremap \ :Ag<SPACE>
-  endif
+    " Start searching from project root instead of cwd
+    let g:ag_working_path_mode="r"
+
+    " Automatically close VIM if quickfix window is only remaining window open
+    aug QFClose
+        au!
+        au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
+    aug END
+
+    if !exists(":Ag")
+        command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+        nnoremap \ :Ag<SPACE>
+
+        let g:ackprg = 'ag --vimgrep'
+    endif
 endif
 
 " }}}
@@ -215,9 +239,6 @@ let g:EclimCompletionMethod = 'omnifunc'
 
 " Eclim - Import the class under the cursor
 nnoremap <silent> <buffer> <leader>i :JavaImport<cr>
-
-" Eclim - Search the javadocs of the element under the cursor
-nnoremap <silent> <buffer> <leader>d :JavaDocSearch -x declarations<cr>
 
 " Eclim - Perform a context sensitive search of the element under the cursor
 nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
@@ -258,56 +279,37 @@ let g:html_indent_tags = 'li\|p'
 " }}}
 
 " Other Features {{{ 
-" Tab Completion {{{
-
-" will insert tab at beginning of line,
-" will use completion if not at beginning
-set wildmode=list:longest,list:full
-
-function! InsertTabWrapper()
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k'
-        return "\<tab>"
-    else
-        return "\<c-p>"
-    endif
-endfunction
-
-inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
-inoremap <S-Tab> <c-n>
-
-" }}}
 
 " Folding {{{
 
 set foldenable " enable folding
 set foldlevelstart=10 " open most folds by default
 set foldnestmax=10 " 10 nested fold max
+set foldmethod=indent " fold based on indent level
 
 " space open/closes folds
 nnoremap <space> za
-set foldmethod=indent " fold based on indent level
 
 " }}}
 
 " Copy/Paste {{{
 
-" "key to insert mode with paste
+" Prepare to copy/paste with the mouse
 map <leader>p :set paste<CR>
-" Leave paste mode on exit
-au InsertLeave * set nopaste
+map <leader>c :set relativenumber!<CR>:set number!<CR>:set list!<CR>
+
+au InsertLeave * set nopaste " Leave paste mode on exit
 
 " }}}
 
 " Line Numbers {{{
 
-" Toggle between absolute and relative numbers with Ctrl + N
 " Set Relative Line Numbers by default
 set relativenumber
+
+" Toggle between absolute and relative numbers with Ctrl + N
 nnoremap <C-n> :set relativenumber!<cr>
 
-" <leader>p allows you to copy/paste easily with the mouse
-map <leader>c :set relativenumber!<CR>:set number!<CR>:set list!<CR>
 
 " }}}
 
