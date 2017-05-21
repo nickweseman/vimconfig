@@ -72,7 +72,32 @@ nmap <leader>x :wq<CR>
 " turn off search highlight - vim will keep highlighted matches from previous searches
 nnoremap <leader><space> :nohlsearch<CR>
 
+" alias yw to yank the entire word 'yank inner word'
+" even if the cursor is halfway inside the word
+nnoremap <leader>yw yiww
+
+"Move back and forth through previous and next buffers
+"with <leader>z and <leader>x
+nnoremap <silent> <leader>z :bp<CR>
+nnoremap <silent> <leader>x :bn<CR>
+
+" Windows splits with vv (vertical) and ss (horizontal)
+nnoremap <silent> vv <C-w>v
+nnoremap <silent> ss <C-w>s
+
+"(v)im (c)ommand - execute current line as a vim command
+nmap <silent> <leader>vc yy:<C-f>p<C-c><CR>
+
+"(v)im (r)eload
+nmap <silent> <leader>vr :so %<CR>
+
+" Map Ctrl-x and Ctrl-z to navigate the quickfix error list (normally :cn and :cp)
+nnoremap <silent> <C-x> :cn<CR>
+nnoremap <silent> <C-z> :cp<CR>
+
+
 " }}}
+"
 
 " Other Shortcuts {{{
 
@@ -88,8 +113,26 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
+" simplify resizing window panes
+" this method came from: http://stackoverflow.com/a/16600458/7906399
+" to get the unix escape key to replace ^[:  i(inert mode) then C-v then Esc
+if has('unix')
+    nnoremap j <C-w>-
+    nnoremap k <C-w>+
+    nnoremap h <C-w><
+    nnoremap l <C-w>>
+else
+    nnoremap <M-j> <C-w>-
+    nnoremap <M-k> <C-w>+
+    nnoremap <M-h> <C-w><
+    nnoremap <M-l> <C-w>>
+endif
+
 " Map Y to act like D and C, rather than act as yy, which is the default
 map Y y$
+
+" w!! to write a file as sudo
+cmap w!! w !sudo tee % >/dev/null
 
 " }}}
 " }}}
@@ -113,10 +156,10 @@ set runtimepath^=~/.vim/bundle/ag.vim
 
 " NERDTree {{{
 " Toggle nerdtree with F10
-map <leader>n :NERDTreeTabsToggle<CR>
+map <leader>n :NERDTreeToggle<CR>
 
 " Current file in nerdtree
-map <leader>f :NERDTreeTabsFind<CR>
+map <leader>f :NERDTreeFind<CR>
 
 " hide pyc files in NERDTree
 let NERDTreeIgnore=['\.pyc$', '\~$']
@@ -227,6 +270,12 @@ if executable('ag')
 endif
 
 " }}}
+
+" Vim-Airline {{{
+
+let g:airline#extensions#tabline#enabled = 1
+
+" }}}
 " }}}
 
 " File Specific {{{
@@ -278,7 +327,7 @@ let g:html_indent_tags = 'li\|p'
 " }}}
 " }}}
 
-" Other Features {{{ 
+" Other Features {{{
 
 " Folding {{{
 
@@ -299,6 +348,10 @@ map <leader>p :set paste<CR>
 map <leader>c :set relativenumber!<CR>:set number!<CR>:set list!<CR>
 
 au InsertLeave * set nopaste " Leave paste mode on exit
+
+" Auto indent pasted text
+nnoremap p p=`]<C-o>
+nnoremap P P=`]<C-o>
 
 " }}}
 
