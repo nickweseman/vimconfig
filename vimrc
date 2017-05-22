@@ -67,7 +67,7 @@ nnoremap <leader><leader> <c-^> " Switch between the last two files
 
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
-nmap <leader>x :wq<CR>
+nmap <leader>s :wq<CR>
 
 " turn off search highlight - vim will keep highlighted matches from previous searches
 nnoremap <leader><space> :nohlsearch<CR>
@@ -86,7 +86,7 @@ nnoremap <silent> vv <C-w>v
 nnoremap <silent> ss <C-w>s
 
 "(v)im (c)ommand - execute current line as a vim command
-nmap <silent> <leader>vc yy:<C-f>p<C-c><CR>
+nmap <silent> <leader>vc yy:<C-f>p<Esc><CR>
 
 "(v)im (r)eload
 nmap <silent> <leader>vr :so %<CR>
@@ -95,6 +95,11 @@ nmap <silent> <leader>vr :so %<CR>
 nnoremap <silent> <C-x> :cn<CR>
 nnoremap <silent> <C-z> :cp<CR>
 
+" Go to next/previous function
+nnoremap <silent> <leader>j ]m
+nnoremap <silent> <leader>k [m
+
+nnoremap <C-c> :bp\|bd #<CR>
 
 " }}}
 "
@@ -287,13 +292,25 @@ let g:EclimJavaValidate = 1
 let g:EclimCompletionMethod = 'omnifunc'
 
 " Eclim - Import the class under the cursor
-nnoremap <silent> <buffer> <leader>i :JavaImport<cr>
+autocmd Syntax java nnoremap <buffer> <leader>i :JavaImport<cr>
 
 " Eclim - Perform a context sensitive search of the element under the cursor
-nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
+autocmd Syntax java nnoremap <buffer> <cr> :JavaSearchContext<cr>
 
 " Eclim - Code Correction Suggestion
-nnoremap <silent> <buffer> <leader>a :JavaCorrect<cr>
+autocmd Syntax java nnoremap <buffer> <leader>a :JavaCorrect<cr>
+
+" Eclim - Organize Imports
+autocmd Syntax java nnoremap <buffer> <leader>o :JavaImportOrganize<cr>
+
+" Eclim - Add javadocs 
+autocmd Syntax java nnoremap <buffer> <leader>8 :JavaDocComment<cr>
+
+" Eclim - Auto format 
+autocmd Syntax java nnoremap <buffer> <leader>9 :JavaFormat<cr>
+
+" Search from project root
+autocmd Syntax java noremap <leader>\ :ProjectGrep<SPACE>
 
 " properly auto-insert matched block delimiters
 autocmd Syntax c,cpp,java,php,perl imap { {<CR>}<Esc>O
