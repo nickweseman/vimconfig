@@ -232,6 +232,8 @@ nnoremap <silent> <leader>b :CtrlPBuffer<cr>
 
 let g:ctrlp_cmd = 'CtrlPMRU'
 
+let g:ctrlp_show_hidden = 1
+
 " }}}
 
 " Matchit {{{
