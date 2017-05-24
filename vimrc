@@ -23,7 +23,7 @@ set showmatch " highlight matching [{()}]
 set scrolloff=8 " Always show at least eight line above/below the cursor
 set report=0 " always show changes (e.g. 3 lines yanked at the bottom)
 set nowrap " Don't wrap lines
-set linebreak "Wrap lines at convenient points
+set formatoptions-=t " turn off autowrap but still show the vertical line
 set autoread " Reload files changed outside vim
 set autoindent
 set fileformat=unix
