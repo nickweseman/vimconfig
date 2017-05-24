@@ -223,6 +223,9 @@ autocmd VimEnter * nested :call tagbar#autoopen(1)
 " Open Tagbar automtically in a new tab for a supported file type
 autocmd BufEnter * nested :call tagbar#autoopen(0)
 
+" Ensure quickfix window opens in the bottom middle pane instead of right pane
+" under tagbar
+:autocmd FileType qf wincmd J
 " }}}
 
 " CtrlP {{{
@@ -230,9 +233,18 @@ autocmd BufEnter * nested :call tagbar#autoopen(0)
 " Additional mapping for buffer search
 nnoremap <silent> <leader>b :CtrlPBuffer<cr>
 
-let g:ctrlp_cmd = 'CtrlPMRU'
+let g:ctrlp_cmd = 'CtrlP' " C-p searches from the current directory
+
+noremap <C-a> :CtrlP ~<CR> " C-a searches from ~ directory
+noremap <leader>m :CtrlPMRU<CR>
+
+" Search for the nearest parent folder that contains .hg/.git/.vats from current
+" working directory (not file's directory)
+let g:ctrlp_working_path_mode = 'wa'
 
 let g:ctrlp_show_hidden = 1
+
+let g:ctrlp_root_markers = ['.vats']
 
 " }}}
 
@@ -294,28 +306,28 @@ let g:EclimJavaValidate = 1
 let g:EclimCompletionMethod = 'omnifunc'
 
 " Eclim - Import the class under the cursor
-autocmd Syntax java nnoremap <buffer> <leader>i :JavaImport<cr>
+autocmd FileType java nnoremap <buffer> <leader>i :JavaImport<cr>
 
 " Eclim - Perform a context sensitive search of the element under the cursor
-autocmd Syntax java nnoremap <buffer> <cr> :JavaSearchContext<cr>
+autocmd FileType java nnoremap <buffer> <cr> :JavaSearchContext<cr>
 
 " Eclim - Code Correction Suggestion
-autocmd Syntax java nnoremap <buffer> <leader>a :JavaCorrect<cr>
+autocmd FileType java nnoremap <buffer> <leader>a :JavaCorrect<cr>
 
 " Eclim - Organize Imports
-autocmd Syntax java nnoremap <buffer> <leader>o :JavaImportOrganize<cr>
+autocmd FileType java nnoremap <buffer> <leader>o :JavaImportOrganize<cr>
 
 " Eclim - Add javadocs 
-autocmd Syntax java nnoremap <buffer> <leader>8 :JavaDocComment<cr>
+autocmd FileType java nnoremap <buffer> <leader>8 :JavaDocComment<cr>
 
 " Eclim - Auto format 
-autocmd Syntax java nnoremap <buffer> <leader>9 :JavaFormat<cr>
+autocmd FileType java nnoremap <buffer> <leader>9 :JavaFormat<cr>
 
 " Search from project root
-autocmd Syntax java noremap <leader>\ :ProjectGrep<SPACE>
+autocmd FileType java noremap <leader>\ :ProjectGrep<SPACE>
 
 " properly auto-insert matched block delimiters
-autocmd Syntax c,cpp,java,php,perl imap { {<CR>}<Esc>O
+autocmd FileType c,cpp,java,php,perl imap { {<CR>}<Esc>O
 
 " F5 compiles and runs Java class
 autocmd FileType java nnoremap <buffer> <leader>r :!javac % ; java %:r<cr>
