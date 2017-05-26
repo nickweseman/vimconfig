@@ -72,10 +72,6 @@ nmap <leader>s :wq<CR>
 " turn off search highlight - vim will keep highlighted matches from previous searches
 nnoremap <leader><space> :nohlsearch<CR>
 
-" alias yw to yank the entire word 'yank inner word'
-" even if the cursor is halfway inside the word
-nnoremap <leader>yw yiww
-
 "Move back and forth through previous and next buffers
 "with <leader>z and <leader>x
 nnoremap <silent> <leader>z :bp<CR>
@@ -157,6 +153,7 @@ set runtimepath^=~/.vim/bundle/vim-tmux-navigator
 set runtimepath^=~/.vim/bundle/vim-commentary
 set runtimepath^=~/.vim/bundle/vim-nerdtree-tabs
 set runtimepath^=~/.vim/bundle/ag.vim
+set runtimepath^=~/.vim/bundle/vim-tmux-resizer
 " }}}
 
 " NERDTree {{{
@@ -195,7 +192,7 @@ let g:syntastic_eruby_ruby_quiet_messages =
 " Suggested Settings from Syntastic's GitHub page
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0 " don't check on open, it was too slow
 let g:syntastic_check_on_wq = 0
 set statusline+=\ %=%#warningmsg#
 set statusline+=\ %=%{SyntasticStatuslineFlag()}
@@ -390,6 +387,7 @@ nnoremap P P=`]<C-o>
 
 " Set Relative Line Numbers by default
 set relativenumber
+set number
 
 " Toggle between absolute and relative numbers with Ctrl + N
 nnoremap <C-n> :set relativenumber!<cr>
