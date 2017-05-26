@@ -87,6 +87,9 @@ nmap <silent> <leader>vc yy:<C-f>p<Esc><CR>
 "(v)im (r)eload
 nmap <silent> <leader>vr :so %<CR>
 
+" open editor to vimrc file
+nnoremap <leader>vrc :vsplit ~/.vim/vimrc<CR>
+
 " Map Ctrl-x and Ctrl-z to navigate the quickfix error list (normally :cn and :cp)
 nnoremap <silent> <C-x> :cn<CR>
 nnoremap <silent> <C-z> :cp<CR>
