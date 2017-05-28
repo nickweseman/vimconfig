@@ -324,13 +324,19 @@ autocmd FileType java nnoremap <buffer> <leader>8 :JavaDocComment<cr>
 autocmd FileType java nnoremap <buffer> <leader>9 :JavaFormat<cr>
 
 " Search from project root
-autocmd FileType java noremap <leader>\ :ProjectGrep<SPACE>
+autocmd FileType java nnoremap <leader>\ :ProjectGrep<SPACE>
 
 " properly auto-insert matched block delimiters
 autocmd FileType c,cpp,java,php,perl imap { {<CR>}<Esc>O
 
 " F5 compiles and runs Java class
 autocmd FileType java nnoremap <buffer> <leader>r :!javac % ; java %:r<cr>
+
+autocmd FileType java nnoremap <F7> :JavaDebugStep into<CR>
+autocmd FileType java nnoremap <F8> :JavaDebugStep over<CR>
+autocmd FileType java nnoremap <F9> :JavaDebugStep return<CR>
+
+autocmd FileType java nnoremap <F10> :JavaDebugBreakpointToggle<CR>
 
 " }}}
 
