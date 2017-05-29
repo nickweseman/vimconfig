@@ -63,7 +63,9 @@ set nojoinspaces " avoid double spaces when joining lines
 set sidescroll=1 " scroll sideways a character at a time, not a screen at a time
 set sidescrolloff=5 " show 5 characters of context when side scrolling
 
-
+" Only show cursor line in current window and insert mode
+au WinLeave,InsertLeave * set nocursorline
+au WinEnter,InsertLeave * set cursorline
 
 scriptencoding utf-8
 
@@ -226,24 +228,29 @@ nnoremap ! :!
 " }}}
 
 " Plugins {{{
+
 " Runtimepath {{{
+
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 set runtimepath^=~/.vim/bundle/nerdtree
-set runtimepath^=~/.vim/bundle/vim-fugitive
+set runtimepath^=~/.vim/bundle/vim-nerdtree-tabs
+set runtimepath^=~/.vim/bundle/vim-fugitive " git commands within vim
 set runtimepath^=~/.vim/bundle/vim-gitgutter
-set runtimepath^=~/.vim/bundle/vim-airline
+set runtimepath^=~/.vim/bundle/vim-airline " statusbar
 set runtimepath^=~/.vim/bundle/YouCompleteMe
 set runtimepath^=~/.vim/bundle/syntastic
 set runtimepath^=~/.vim/bundle/tagbar
-set runtimepath^=~/.vim/bundle/vim-signify
-set runtimepath^=~/.vim/bundle/vim-tmux-navigator
-set runtimepath^=~/.vim/bundle/vim-commentary
-set runtimepath^=~/.vim/bundle/vim-nerdtree-tabs
-set runtimepath^=~/.vim/bundle/ag.vim
-set runtimepath^=~/.vim/bundle/vim-tmux-resizer
+set runtimepath^=~/.vim/bundle/vim-signify " show vim diff in sign column
+set runtimepath^=~/.vim/bundle/vim-tmux-navigator " C-hjkl to switch
+set runtimepath^=~/.vim/bundle/vim-commentary " gcc
+set runtimepath^=~/.vim/bundle/ag.vim " Ag: (\)
+set runtimepath^=~/.vim/bundle/vim-tmux-resizer " A-hjkl to resize
+set runtimepath^=~/.vim/bundle/vim-action-ag " gagiw (<leader>a)
+
 " }}}
 
 " NERDTree {{{
+
 " Toggle nerdtree with F10
 map <leader>n :NERDTreeToggle<CR>
 
@@ -368,6 +375,9 @@ if executable('ag')
         command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
         nnoremap \ :Ag<SPACE>
 
+        " Search Ag for current word
+        nmap <leader>a <Plug>AgActionWord
+    
         let g:ackprg = 'ag --vimgrep'
     endif
 endif
@@ -390,22 +400,22 @@ let g:EclimJavaValidate = 1
 let g:EclimCompletionMethod = 'omnifunc'
 
 " Eclim - Import the class under the cursor
-autocmd FileType java nnoremap <buffer> <leader>i :JavaImport<cr>
+autocmd FileType java nnoremap <buffer> <leader>ji :JavaImport<cr>
 
 " Eclim - Perform a context sensitive search of the element under the cursor
 autocmd FileType java nnoremap <buffer> <cr> :JavaSearchContext<cr>
 
 " Eclim - Code Correction Suggestion
-autocmd FileType java nnoremap <buffer> <leader>a :JavaCorrect<cr>
+autocmd FileType java nnoremap <buffer> <leader>ja :JavaCorrect<cr>
 
 " Eclim - Organize Imports
-autocmd FileType java nnoremap <buffer> <leader>o :JavaImportOrganize<cr>
+autocmd FileType java nnoremap <buffer> <leader>jo :JavaImportOrganize<cr>
 
 " Eclim - Add javadocs
-autocmd FileType java nnoremap <buffer> <leader>8 :JavaDocComment<cr>
+autocmd FileType java nnoremap <buffer> <leader>j8 :JavaDocComment<cr>
 
 " Eclim - Auto format
-autocmd FileType java nnoremap <buffer> <leader>9 :JavaFormat<cr>
+autocmd FileType java nnoremap <buffer> <leader>j9 :JavaFormat<cr>
 
 " Search from project root
 autocmd FileType java nnoremap <leader>\ :ProjectGrep<SPACE>
@@ -414,7 +424,7 @@ autocmd FileType java nnoremap <leader>\ :ProjectGrep<SPACE>
 autocmd FileType c,cpp,java,php,perl imap { {<CR>}<Esc>O
 
 " F5 compiles and runs Java class
-autocmd FileType java nnoremap <buffer> <leader>r :!javac % ; java %:r<cr>
+autocmd FileType java nnoremap <buffer> <leader>jr :!javac % ; java %:r<cr>
 
 autocmd FileType java nnoremap <F7> :JavaDebugStep into<CR>
 autocmd FileType java nnoremap <F8> :JavaDebugStep over<CR>
