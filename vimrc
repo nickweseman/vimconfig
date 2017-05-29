@@ -56,6 +56,8 @@ set spellfile=~/.vim/custom-dictionary.utf-8.add,~/.vim-local.dictionary.utf-8.a
 nnoremap zG 2zg " zG adds a word to the local dictionary, zg adds to custom dictionary
 set synmaxcol=800 " Don't try to highlight lines longer than 800 characters.
 set gdefault " skip /g for searches because it will search globally by default
+
+
 scriptencoding utf-8
 
 let mapleader = "," " Leader=,
@@ -93,8 +95,10 @@ nmap <silent> <leader>vc yy:<C-f>p<Esc><CR>
 " reload file
 nmap <silent> <leader>vr :so %<CR>
 
-" open editor to vimrc file
+" open editor to shortcut file
 nnoremap <leader>ev :vsplit ~/.vim/vimrc<CR>
+nnoremap <leader>et :vsplit ~/.tmux/.tmux.conf<CR>
+nnoremap <leader>eb :vsplit ~/.bash/.bashrc<CR>
 
 " Map Ctrl-x and Ctrl-z to navigate the quickfix error list (normally :cn and :cp)
 nnoremap <silent> <C-x> :cn<CR>
@@ -125,10 +129,6 @@ nnoremap zr :let @z=@"<cr>x$p:let @"=@z<cr>
 
 " edit custom dictionary
 nnoremap <leader>ed :vsplit ~/.vim/custom-dictionary.utf-8.add<cr>
-
-" Use sane regexes.
-nnoremap / /\v
-vnoremap / /\v
 
 
 
@@ -189,6 +189,26 @@ nnoremap <left>  :cprev<cr>zvzz
 nnoremap <right> :cnext<cr>zvzz
 nnoremap <up>    :lprev<cr>zvzz
 nnoremap <down>  :lnext<cr>zvzz
+
+" Tab is much easier to type
+map <TAB> %
+
+" Reselect last-pasted text
+nnoremap gv `[v`]
+
+" Don't move on *
+nnoremap * *<C-o>
+
+" Easier to type
+noremap H ^
+noremap L g_
+
+" Bash style beginning and end of line only in insert and command mode
+inoremap <C-a> <esc>I
+inoremap <C-e> <esc>A
+cnoremap <c-a> <home>
+cnoremap <c-e> <end>
+
 " }}}
 " }}}
 
@@ -488,5 +508,6 @@ augroup END
 
 " }}}
 
+" End {{{
 " this goes at the bottom of the file
-" vim:foldmethod=marker:foldlevel=0
+" }}} vim:foldmethod=marker:foldlevel=0
