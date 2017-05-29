@@ -18,11 +18,11 @@ set colorcolumn=+1
 set hlsearch  " highlights matches
 set cursorline  " highlight current line
 set wildmenu " visual autocomplete for command menu
-set lazyredraw " redraw only when we hvae to (not during macros)
+set lazyredraw " redraw only when we have to (not during macros)
 set showmatch " highlight matching [{()}]
-set scrolloff=8 " Always show at least eight line above/below the cursor
+set scrolloff=10 " Always show at least ten line above/below the cursor
 set report=0 " always show changes (e.g. 3 lines yanked at the bottom)
-set nowrap " Don't wrap lines
+set wrap " wrap lines
 set formatoptions-=t " turn off autowrap but still show the vertical line
 set autoread " Reload files changed outside vim
 set autoindent
@@ -49,7 +49,13 @@ set shiftwidth=4
 set shiftround
 set expandtab " tabs are shortcut for 4 spaces
 set wildmode=list:longest,list:full " will insert tab at beginning of line, will use completion if not at beginning
-
+set shortmess+=I " remove startup message when starting Vim
+set dictionary=/usr/share/dict/words
+" ~/.vim/custom-dictionary is version controlled, ~/.vim-local-dictionary.utf-8 is not
+set spellfile=~/.vim/custom-dictionary.utf-8.add,~/.vim-local.dictionary.utf-8.add
+nnoremap zG 2zg " zG adds a word to the local dictionary, zg adds to custom dictionary
+set synmaxcol=800 " Don't try to highlight lines longer than 800 characters.
+set gdefault " skip /g for searches because it will search globally by default
 scriptencoding utf-8
 
 let mapleader = "," " Leader=,
@@ -81,14 +87,14 @@ nnoremap <silent> <leader>x :bn<CR>
 nnoremap <silent> vv <C-w>v
 nnoremap <silent> ss <C-w>s
 
-"(v)im (c)ommand - execute current line as a vim command
+" execute current line as a vim command
 nmap <silent> <leader>vc yy:<C-f>p<Esc><CR>
 
-"(v)im (r)eload
+" reload file
 nmap <silent> <leader>vr :so %<CR>
 
 " open editor to vimrc file
-nnoremap <leader>vrc :vsplit ~/.vim/vimrc<CR>
+nnoremap <leader>ev :vsplit ~/.vim/vimrc<CR>
 
 " Map Ctrl-x and Ctrl-z to navigate the quickfix error list (normally :cn and :cp)
 nnoremap <silent> <C-x> :cn<CR>
@@ -100,8 +106,34 @@ nnoremap <silent> <leader>k [m
 
 nnoremap <C-c> :bp\|bd #<CR>
 
+nnoremap <leader>_ mz:%s/\s\+$//<cr>:let @/=''<cr>`z " Clean trailing whitespace
+
+" C-t - turn word you just typed into all UPPER_CASE while still in insert mode
+inoremap <C-t> <ESC>mzgUiw`za
+
+" Split line (sister to Join lines)
+" The normal use of S is covered by cc, so don't worry about shadowing it.
+nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
+
+" Select (charwise) the contents of the current line, excluding indentation.
+" Great for pasting Python lines into REPLs.
+nnoremap vv ^vg_
+
+" "Zip Right" a character to the end of the line
+" e.g. println()foo -> println(foo)
+nnoremap zr :let @z=@"<cr>x$p:let @"=@z<cr>
+
+" edit custom dictionary
+nnoremap <leader>ed :vsplit ~/.vim/custom-dictionary.utf-8.add<cr>
+
+" Use sane regexes.
+nnoremap / /\v
+vnoremap / /\v
+
+
+
+
 " }}}
-"
 
 " Other Shortcuts {{{
 
@@ -135,9 +167,28 @@ endif
 " Map Y to act like D and C, rather than act as yy, which is the default
 map Y y$
 
-" w!! to write a file as sudo
+" w!! - to write a file as sudo
 cmap w!! w !sudo tee % >/dev/null
 
+" Center screen on search results
+nnoremap n nzzzv
+nnoremap N Nzzzv
+nnoremap <C-o> <C-o>zz
+nnoremap <C-i> <C-i>zz
+nnoremap { {zz
+nnoremap } }zz
+nnoremap g; g;zz
+nnoremap g, g,zz
+
+" j and k treat wrapped lines normally
+nnoremap j gj
+nnoremap k gk
+
+" list navigation
+nnoremap <left>  :cprev<cr>zvzz
+nnoremap <right> :cnext<cr>zvzz
+nnoremap <up>    :lprev<cr>zvzz
+nnoremap <down>  :lnext<cr>zvzz
 " }}}
 " }}}
 
@@ -169,7 +220,7 @@ map <leader>f :NERDTreeFind<CR>
 " hide pyc files in NERDTree
 let NERDTreeIgnore=['\.pyc$', '\~$']
 
-" Auto open NERDTree on startup and adjsut focus to main window
+" Auto open NERDTree on startup and adjust focus to main window
 autocmd VimEnter * NERDTree | wincmd p
 
 " On startup, focus NERDTree if opening a directory, file if opening a file
@@ -220,7 +271,7 @@ nmap <leader>t :TagbarToggle<CR>
 " Open Tagbar automatically if opening a supported file type
 autocmd VimEnter * nested :call tagbar#autoopen(1)
 
-" Open Tagbar automtically in a new tab for a supported file type
+" Open Tagbar automatically in a new tab for a supported file type
 autocmd BufEnter * nested :call tagbar#autoopen(0)
 
 " Ensure quickfix window opens in the bottom middle pane instead of right pane
@@ -317,10 +368,10 @@ autocmd FileType java nnoremap <buffer> <leader>a :JavaCorrect<cr>
 " Eclim - Organize Imports
 autocmd FileType java nnoremap <buffer> <leader>o :JavaImportOrganize<cr>
 
-" Eclim - Add javadocs 
+" Eclim - Add javadocs
 autocmd FileType java nnoremap <buffer> <leader>8 :JavaDocComment<cr>
 
-" Eclim - Auto format 
+" Eclim - Auto format
 autocmd FileType java nnoremap <buffer> <leader>9 :JavaFormat<cr>
 
 " Search from project root
@@ -439,5 +490,3 @@ augroup END
 
 " this goes at the bottom of the file
 " vim:foldmethod=marker:foldlevel=0
-
-
