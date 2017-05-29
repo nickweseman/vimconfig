@@ -24,6 +24,9 @@ set scrolloff=10 " Always show at least ten line above/below the cursor
 set report=0 " always show changes (e.g. 3 lines yanked at the bottom)
 set wrap " wrap lines
 set formatoptions-=t " turn off autowrap but still show the vertical line
+set formatoptions+=l " if a line is longer than textwidth when insert starts, don't reformat it
+set formatoptions+=1 " don't wrap after a one letter word, wrap before
+set formatoptions+=j " delete comment leaders when joining lines
 set autoread " Reload files changed outside vim
 set autoindent
 set fileformat=unix
@@ -56,6 +59,10 @@ set spellfile=~/.vim/custom-dictionary.utf-8.add,~/.vim-local.dictionary.utf-8.a
 nnoremap zG 2zg " zG adds a word to the local dictionary, zg adds to custom dictionary
 set synmaxcol=800 " Don't try to highlight lines longer than 800 characters.
 set gdefault " skip /g for searches because it will search globally by default
+set nojoinspaces " avoid double spaces when joining lines
+set sidescroll=1 " scroll sideways a character at a time, not a screen at a time
+set sidescrolloff=5 " show 5 characters of context when side scrolling
+
 
 
 scriptencoding utf-8
@@ -184,7 +191,7 @@ nnoremap g, g,zz
 nnoremap j gj
 nnoremap k gk
 
-" list navigation
+" list navigation (also use C-x and C-z for :cpprev and :cnext)
 nnoremap <left>  :cprev<cr>zvzz
 nnoremap <right> :cnext<cr>zvzz
 nnoremap <up>    :lprev<cr>zvzz
@@ -208,6 +215,12 @@ inoremap <C-a> <esc>I
 inoremap <C-e> <esc>A
 cnoremap <c-a> <home>
 cnoremap <c-e> <end>
+
+" Send chars deleted with 'x' to the black hole
+nnoremap x "_x
+
+" Start an external command with just !
+nnoremap ! :!
 
 " }}}
 " }}}
