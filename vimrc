@@ -137,10 +137,6 @@ inoremap <C-t> <ESC>mzgUiw`za
 " The normal use of S is covered by cc, so don't worry about shadowing it.
 nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
 
-" Select (charwise) the contents of the current line, excluding indentation.
-" Great for pasting Python lines into REPLs.
-nnoremap vv ^vg_
-
 " "Zip Right" a character to the end of the line
 " e.g. println()foo -> println(foo)
 nnoremap zr :let @z=@"<cr>x$p:let @"=@z<cr>
@@ -254,6 +250,7 @@ set runtimepath^=~/.vim/bundle/vim-nerdtree-tabs
 set runtimepath^=~/.vim/bundle/vim-fugitive " git commands within vim
 set runtimepath^=~/.vim/bundle/vim-gitgutter
 set runtimepath^=~/.vim/bundle/vim-airline " statusbar
+set runtimepath^=~/.vim/bundle/vim-airline-themes " solarized theme (actually chose others)
 set runtimepath^=~/.vim/bundle/YouCompleteMe
 set runtimepath^=~/.vim/bundle/syntastic
 set runtimepath^=~/.vim/bundle/tagbar
@@ -394,7 +391,7 @@ if executable('ag')
 
         " Search Ag for current word
         nmap <leader>a <Plug>AgActionWord
-    
+
         let g:ackprg = 'ag --vimgrep'
     endif
 endif
@@ -404,6 +401,11 @@ endif
 " Vim-Airline {{{
 
 let g:airline#extensions#tabline#enabled = 1
+
+let g:airline_theme='badwolf'
+" I don't like how the solarized airline theme looks
+" let g:airline_solarized_normal_green=1
+" let g:airline_solarized_bg='dark'
 
 " }}}
 " }}}
@@ -496,6 +498,9 @@ map <leader>p :set paste<CR>
 map <leader>c :set relativenumber!<CR>:set number!<CR>:set list!<CR>
 
 au InsertLeave * set nopaste " Leave paste mode on exit
+
+" you can click and drag mouse to copy to Windows clipboard
+set mouse=a
 
 " Auto indent pasted text
 nnoremap p p=`]<C-o>
