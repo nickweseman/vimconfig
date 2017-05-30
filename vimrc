@@ -49,7 +49,7 @@ set confirm " Instead of failing a command because of unsaved changes, instead r
 set tabstop=4 " Softtabs, 4 spaces
 set softtabstop=4
 set shiftwidth=4
-set shiftround
+set shiftround " make sure indentions are always a multiple of 4
 set expandtab " tabs are shortcut for 4 spaces
 set wildmode=list:longest,list:full " will insert tab at beginning of line, will use completion if not at beginning
 set shortmess+=I " remove startup message when starting Vim
@@ -62,6 +62,15 @@ set gdefault " skip /g for searches because it will search globally by default
 set nojoinspaces " avoid double spaces when joining lines
 set sidescroll=1 " scroll sideways a character at a time, not a screen at a time
 set sidescrolloff=5 " show 5 characters of context when side scrolling
+set matchpairs=(:),{:},[:],<:> " match all forms of brackets in pairs
+
+" Don't bother about checking whether Escape is being used as a means to enter
+" a Meta-key combination, just register Escape immediately
+set noesckeys
+
+" Improve redrawing smoothness by assuming that my terminal is reasonably fast
+set ttyfast
+
 
 " Only show cursor line in current window and insert mode
 au WinLeave,InsertLeave * set nocursorline
@@ -223,6 +232,14 @@ nnoremap x "_x
 
 " Start an external command with just !
 nnoremap ! :!
+
+" Don't move the screen when joining lines
+nnoremap J mzJ`z
+
+" Preserve the flags for a pattern when repeating a substitution with &; I don't
+" really understand why this isn't a default, but there it is
+nnoremap & :&&<CR>
+vnoremap & :&&<CR>
 
 " }}}
 " }}}
