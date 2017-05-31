@@ -400,7 +400,11 @@ endif
 
 " Vim-Airline {{{
 
+" Enable tabline to hold buffers as well
 let g:airline#extensions#tabline#enabled = 1
+
+" Only show the filename in the tab
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 let g:airline_theme='badwolf'
 " I don't like how the solarized airline theme looks
