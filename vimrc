@@ -144,7 +144,13 @@ nnoremap zr :let @z=@"<cr>x$p:let @"=@z<cr>
 " edit custom dictionary
 nnoremap <leader>ed :vsplit ~/.vim/custom-dictionary.utf-8.add<cr>
 
+" delete without yanking
+nnoremap <leader>d "_d
+vnoremap <leader>d "_d
 
+" replace currently selected text with default register
+" without yanking it
+vnoremap <leader>p "_dP
 
 
 " }}}
@@ -498,8 +504,8 @@ nnoremap <space> za
 " Copy/Paste {{{
 
 " Prepare to copy/paste with the mouse
-map <leader>p :set paste<CR>
-map <leader>c :set relativenumber!<CR>:set number!<CR>:set list!<CR>
+nnoremap <leader>p :set paste<CR>
+nnoremap <leader>c :set relativenumber!<CR>:set number!<CR>:set list!<CR>
 
 au InsertLeave * set nopaste " Leave paste mode on exit
 
