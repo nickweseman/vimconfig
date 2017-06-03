@@ -510,7 +510,8 @@ nnoremap <leader>c :set relativenumber!<CR>:set number!<CR>:set list!<CR>
 au InsertLeave * set nopaste " Leave paste mode on exit
 
 " you can click and drag mouse to copy to Windows clipboard
-set mouse=a
+" not any better with copy/paste and it messes up the screen sometimes
+"set mouse=a
 
 " Auto indent pasted text
 nnoremap p p=`]<C-o>
