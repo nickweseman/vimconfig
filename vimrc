@@ -254,6 +254,7 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 set runtimepath^=~/.vim/bundle/nerdtree
 set runtimepath^=~/.vim/bundle/vim-nerdtree-tabs
 set runtimepath^=~/.vim/bundle/vim-fugitive " git commands within vim
+set runtimepath^=~/.vim/bundle/vim-lawrencium " hg commands within vim
 set runtimepath^=~/.vim/bundle/vim-gitgutter
 set runtimepath^=~/.vim/bundle/vim-airline " statusbar
 set runtimepath^=~/.vim/bundle/vim-airline-themes " solarized theme (actually chose others)
