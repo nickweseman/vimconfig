@@ -254,14 +254,14 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 set runtimepath^=~/.vim/bundle/nerdtree
 set runtimepath^=~/.vim/bundle/vim-nerdtree-tabs
 set runtimepath^=~/.vim/bundle/vim-fugitive " git commands within vim
-set runtimepath^=~/.vim/bundle/vim-lawrencium " hg commands within vim
-set runtimepath^=~/.vim/bundle/vim-gitgutter
+set runtimepath^=~/.vim/bundle/vim-lawrencium " hg commands within vim 
+set runtimepath^=~/.vim/bundle/vim-gitgutter " show vim diff in sign column (git)
+set runtimepath^=~/.vim/bundle/vim-signify " show vim diff in sign column (hg, others)
 set runtimepath^=~/.vim/bundle/vim-airline " statusbar
 set runtimepath^=~/.vim/bundle/vim-airline-themes " solarized theme (actually chose others)
 set runtimepath^=~/.vim/bundle/YouCompleteMe
 set runtimepath^=~/.vim/bundle/syntastic
 set runtimepath^=~/.vim/bundle/tagbar
-set runtimepath^=~/.vim/bundle/vim-signify " show vim diff in sign column
 set runtimepath^=~/.vim/bundle/vim-tmux-navigator " C-hjkl to switch
 set runtimepath^=~/.vim/bundle/vim-commentary " gcc
 set runtimepath^=~/.vim/bundle/ag.vim " Ag: (\)
@@ -506,13 +506,12 @@ nnoremap <space> za
 
 " Prepare to copy/paste with the mouse
 nnoremap <leader>p :set paste<CR>
-nnoremap <leader>c :set relativenumber!<CR>:set number!<CR>:set list!<CR>
+nnoremap <leader>c :set relativenumber!<CR>:set number!<CR>:set list!<CR>:SignifyToggle<CR>:NERDTreeToggle<CR>
 
 au InsertLeave * set nopaste " Leave paste mode on exit
 
 " you can click and drag mouse to copy to Windows clipboard
-" not any better with copy/paste and it messes up the screen sometimes
-"set mouse=a
+" set mouse=a
 
 " Auto indent pasted text
 nnoremap p p=`]<C-o>
@@ -540,6 +539,7 @@ nnoremap <C-n> :set relativenumber!<cr>
 "colorscheme darcula
 colorscheme solarized
 set background=dark
+highlight clear SignColumn " this doesn't work in vim-signify for some reason, so for now have to keep using vim-gitgutter to get this behavior
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
