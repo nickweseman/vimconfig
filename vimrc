@@ -466,7 +466,7 @@ autocmd FileType java nnoremap <buffer> <leader>j9 :JavaFormat<cr>
 autocmd FileType java nnoremap <leader>\ :ProjectGrep<SPACE>
 
 " properly auto-insert matched block delimiters
-autocmd FileType c,cpp,java,php,perl,css imap { {<CR>}<Esc>O
+autocmd FileType c,cpp,java,php,perl,css,javascript imap { {<CR>}<Esc>O
 
 " F5 compiles and runs Java class
 autocmd FileType java nnoremap <buffer> <leader>jr :!javac % ; java %:r<cr>
