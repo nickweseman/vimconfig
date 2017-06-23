@@ -438,6 +438,8 @@ let g:airline_theme='badwolf'
 
 " Turn off Eclim code validation so syntastic can run (if set to 0)
 let g:EclimJavaValidate = 1
+let g:EclimHtmlValidate = 0
+let g:EclimCssValidate = 0
 
 let g:EclimCompletionMethod = 'omnifunc'
 
