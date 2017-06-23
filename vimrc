@@ -268,6 +268,7 @@ set runtimepath^=~/.vim/bundle/ag.vim " Ag: (\)
 set runtimepath^=~/.vim/bundle/vim-tmux-resizer " A-hjkl to resize
 set runtimepath^=~/.vim/bundle/vim-action-ag " gagiw (<leader>a)
 set runtimepath^=~/.vim/bundle/vim-easymotion " <leader><leader>w to for easy word motion
+set runtimepath^=~/.vim/bundle/vim-closetag " auto-closes html/xml tags (<html>> to close on next line)
 
 " }}}
 
@@ -465,7 +466,7 @@ autocmd FileType java nnoremap <buffer> <leader>j9 :JavaFormat<cr>
 autocmd FileType java nnoremap <leader>\ :ProjectGrep<SPACE>
 
 " properly auto-insert matched block delimiters
-autocmd FileType c,cpp,java,php,perl imap { {<CR>}<Esc>O
+autocmd FileType c,cpp,java,php,perl,css imap { {<CR>}<Esc>O
 
 " F5 compiles and runs Java class
 autocmd FileType java nnoremap <buffer> <leader>jr :!javac % ; java %:r<cr>
