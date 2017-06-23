@@ -267,6 +267,7 @@ set runtimepath^=~/.vim/bundle/vim-commentary " gcc
 set runtimepath^=~/.vim/bundle/ag.vim " Ag: (\)
 set runtimepath^=~/.vim/bundle/vim-tmux-resizer " A-hjkl to resize
 set runtimepath^=~/.vim/bundle/vim-action-ag " gagiw (<leader>a)
+set runtimepath^=~/.vim/bundle/vim-easymotion " <leader><leader>w to for easy word motion
 
 " }}}
 
@@ -313,6 +314,17 @@ set statusline+=\ %=%#warningmsg#
 set statusline+=\ %=%{SyntasticStatuslineFlag()}
 set statusline+=\ %=%*
 
+let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_css_checkers = ['csslint']
+let g:syntastic_html_checkers = ['tidy']
+
+" }}}
+
+" EasyMotion {{{
+
+" v searches for v and V, but V searches only for V
+let g:EasyMotion_smartcase = 1
+
 " }}}
 
 " YouCompleteMe {{{
@@ -320,8 +332,8 @@ set statusline+=\ %=%*
 " Ensures AutoComplete window goes away when we're done with it
 let g:ycm_autoclose_preview_window_after_completion=1
 
-map <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR> " Go To
-map <leader>e :YcmCompleter GoToReferences<CR> " Find All References
+map <leader>g :YcmCompleter GoTo<CR>" Go To
+map <leader>e :YcmCompleter GoToReferences<CR>" Find All References
 
 " }}}
 
